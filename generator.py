@@ -30,6 +30,15 @@ def random_date(start, end, prop):
     return str_time_prop(start, end, '%m/%d/%Y %I:%M %p', prop)
 
 
+def month_round(input):
+    input = round(input)
+
+    if input != 0:
+        return input
+    else:
+        return 1
+
+
 gender_choice = [1, 2]
 gender_dist = [.48, .52]
 genders = []
@@ -83,6 +92,8 @@ for Age in age:
     birth_year.append(yearNow - round(Age))
     birth_month.append(round(float("0."+str(Age).split('.')[1])*12)) if round(
         float("0."+str(Age).split('.')[1])*12) != 0 else birth_month.append(1)
+    birth_date.append(str(yearNow - round(Age))+"/" +
+                      str(month_round(float("0."+str(Age).split('.')[1])*12)))
 
     if (round(float("0."+str(Age).split('.')[1])*12) == 2):
         birth_day.append(random.randint(0, 28))
@@ -96,6 +107,18 @@ for Age in age:
 
 admission_date = []
 discharge_date = []
+
+for i in range(0, amount_generate):
+
+    admdate = random_date("1/1/2020 12:00 AM",
+                          "5/31/2020 11:59 PM", random.random())
+    admission_date.append(str(admdate).split()[0])
+
+    admdate_day = str(admdate).split()[0].split('/')[1]
+    admdate_month = str(admdate).split()[0].split('/')[0]
+
+    discharge_date.append(pd.to_datetime(
+        str(admdate).split()[0]) + pd.DateOffset(days=random.randint(1, 12)))
 
 
 # Entry Code
@@ -111,20 +134,30 @@ for i in range(0, amount_generate):
 exit_code = []
 
 for i in range(0, amount_generate):
-    exitcodechoices = [91, 92, 2, 1]
-    exit_code.append("%02d" % int(str(random.choices([91, 92, 0, 1])
-                                      ).replace('[', '').replace(']', '')))
+    exitcodechoices = ["91", "92", "00", "01"]
+    # exit_code.append("%02d" % int(str(random.choices([91, 92, 0, 1])
+    #                                   ).replace('[', '').replace(']', '')))
+
+    exit_code.append(random.choices(exitcodechoices))
 
 
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Entry Code": entry_code, "Exit Code": exit_code})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Discharge Date": discharge_date})
 
 output_name = str(input("Please Enter an Output Name: "))
 
 if (os.path.isfile(output_name+".csv")):
-    print(output_name+" already exists, please enter another file name!")
+    # print(output_name+" already exists, please enter another file name!")
+
+    df.to_csv(output_name+".csv", index=False)
+
+    if (".csv" in output_name):
+        output_name.replace('.csv', '')
+
+    print(str(amount_generate) +
+          " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
 else:
 
     df.to_csv(output_name+".csv", index=False)
