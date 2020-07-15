@@ -9,7 +9,7 @@ from scipy.stats import randint
 from scipy.stats import truncnorm
 import math
 import array
-import datetime
+import pandas.core.arrays.datetimes
 import time
 import os
 import pathlib
@@ -91,10 +91,35 @@ for Age in age:
     else:
         birth_day.append(random.randint(0, 30))
 
+
+# Admission and Discharge Date
+
+admission_date = []
+discharge_date = []
+
+
+# Entry Code
+
+entry_code = []
+
+for i in range(0, amount_generate):
+    entry_code.append(str(random.choice(["91", "92"])))
+
+
+# Exit Code
+
+exit_code = []
+
+for i in range(0, amount_generate):
+    exitcodechoices = [91, 92, 2, 1]
+    exit_code.append("%02d" % int(str(random.choices([91, 92, 0, 1])
+                                      ).replace('[', '').replace(']', '')))
+
+
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Entry Code": entry_code, "Exit Code": exit_code})
 
 output_name = str(input("Please Enter an Output Name: "))
 
