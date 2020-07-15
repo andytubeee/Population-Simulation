@@ -12,6 +12,7 @@ import array
 import datetime
 import time
 import os
+import pathlib
 
 # Random date generator
 
@@ -94,6 +95,17 @@ for Age in age:
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
                    "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day})
-df.to_csv("output.csv", index=False)
-print(str(amount_generate) +
-      " datasets has been successfully generated and saved to output.csv at "+str(os.getcwd()))
+
+output_name = str(input("Please Enter an Output Name: "))
+
+if (os.path.isfile(output_name+".csv")):
+    print(output_name+" already exists, please enter another file name!")
+else:
+
+    df.to_csv(output_name+".csv", index=False)
+
+    if (".csv" in output_name):
+        output_name.replace('.csv', '')
+
+    print(str(amount_generate) +
+          " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
