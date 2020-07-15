@@ -86,17 +86,10 @@ for Age in age:
     else:
         birth_day.append(random.randint(0, 30))
 
-
-# with open('output.csv', 'w', newline='') as csvfile:
-#     fieldnames = ["Gender", "Age"]
-#     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-#     writer.writeheader()
-#     for Gender in genders:
-
-#         writer.writerow(
-#             {'Gender': Gender})
+# Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
                    "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day})
 df.to_csv("output.csv", index=False)
-print(str(amount_generate) + " datasets has been successfully generated and saved to output.csv at "+str(os.getcwd()))
+print(str(amount_generate) +
+      " datasets has been successfully generated and saved to output.csv at "+str(os.getcwd()))
