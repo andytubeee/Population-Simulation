@@ -121,6 +121,22 @@ for i in range(0, amount_generate):
         str(admdate).split()[0]) + pd.DateOffset(days=random.randint(1, 12)))
 
 
+# Admission and Discharge Time
+
+admission_time = []
+discharge_time = []
+
+for i in range(0, amount_generate):
+    admission_time.append(str(random_date("1/1/2020 12:00 AM",
+                                          "5/31/2020 11:59 PM", random.random())).split()[1] + " "+str(random.choices(["AM", "PM"])).replace(
+                                              "['", ''
+    ).replace("']", ""))
+    discharge_time.append(str(random_date("1/1/2020 12:00 AM",
+                                          "5/31/2020 11:59 PM", random.random())).split()[1] + " "+str(random.choices(["AM", "PM"])).replace(
+                                              "['", ''
+    ).replace("']", ""))
+
+
 # Entry Code
 
 entry_code = []
@@ -144,7 +160,7 @@ for i in range(0, amount_generate):
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Discharge Date": discharge_date})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time})
 
 output_name = str(input("Please Enter an Output Name: "))
 
