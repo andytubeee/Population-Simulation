@@ -37,7 +37,7 @@ def generate(amount):
                            ).replace('[', '').replace(']', ''))
 
 
-amount_generate = 100
+amount_generate = int(input("Enter amount of data to generate: "))
 
 generate(amount_generate)
 
@@ -54,6 +54,7 @@ for i in range(0, amount_generate - ten_percent_age):
     old_age.append(np.random.normal(loc=85))
 
 age = young_age + old_age
+random.shuffle(age)
 
 
 # Birth Date
