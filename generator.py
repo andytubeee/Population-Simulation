@@ -11,6 +11,7 @@ import math
 import array
 import datetime
 import time
+import os
 
 
 def str_time_prop(start, end, format, prop):
@@ -41,6 +42,7 @@ amount_generate = int(input("Enter amount of data to generate: "))
 
 generate(amount_generate)
 
+
 # Age generate
 
 ten_percent_age = int((amount_generate/100)*10)
@@ -58,6 +60,11 @@ for i in range(0, amount_generate - ten_percent_age):
 age = young_age + old_age
 random.shuffle(age)
 
+# ID
+user_id = []
+
+for ID in age:
+    user_id.append(int(id(ID)))
 
 # Birth Date Generate
 
@@ -89,6 +96,7 @@ for Age in age:
 #         writer.writerow(
 #             {'Gender': Gender})
 
-df = pd.DataFrame({"Genders": genders, "Age": age,
+df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
                    "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day})
 df.to_csv("output.csv", index=False)
+print(str(amount_generate) + " datasets has been successfully generated and saved to output.csv at "+str(os.getcwd()))
