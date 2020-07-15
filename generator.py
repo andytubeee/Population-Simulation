@@ -41,6 +41,8 @@ amount_generate = int(input("Enter amount of data to generate: "))
 
 generate(amount_generate)
 
+# Age generate
+
 ten_percent_age = int((amount_generate/100)*10)
 
 young_age = []
@@ -57,7 +59,7 @@ age = young_age + old_age
 random.shuffle(age)
 
 
-# Birth Date
+# Birth Date Generate
 
 birth_date = []
 birth_year = []
