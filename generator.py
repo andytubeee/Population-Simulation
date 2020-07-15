@@ -107,6 +107,8 @@ for Age in age:
 
 admission_date = []
 discharge_date = []
+lnth_of_stay = []
+icu_day = []
 
 for i in range(0, amount_generate):
 
@@ -117,8 +119,13 @@ for i in range(0, amount_generate):
     admdate_day = str(admdate).split()[0].split('/')[1]
     admdate_month = str(admdate).split()[0].split('/')[0]
 
+    random_stay_date = random.randint(1, 12)
+
     discharge_date.append(pd.to_datetime(
-        str(admdate).split()[0]) + pd.DateOffset(days=random.randint(1, 12)))
+        str(admdate).split()[0]) + pd.DateOffset(days=random_stay_date))
+
+    lnth_of_stay.append(random_stay_date)
+    icu_day.append(random.randint(0, random_stay_date))
 
 
 # Admission and Discharge Time
@@ -150,17 +157,17 @@ for i in range(0, amount_generate):
 exit_code = []
 
 for i in range(0, amount_generate):
-    exitcodechoices = ["91", "92", "00", "01"]
+    exitcodechoices = [91, 92, "%02d" % 0, "%02d" % 1]
     # exit_code.append("%02d" % int(str(random.choices([91, 92, 0, 1])
     #                                   ).replace('[', '').replace(']', '')))
 
-    exit_code.append(random.choices(exitcodechoices))
+    exit_code.append(str(random.choices(exitcodechoices)).replace('[','').replace(']',''))
 
 
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day})
 
 output_name = str(input("Please Enter an Output Name: "))
 
