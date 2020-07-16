@@ -13,6 +13,53 @@ import pandas.core.arrays.datetimes
 import time
 import os
 import pathlib
+import string
+
+# Variables
+
+check_duplicate_file = False
+
+# Gender
+gender_choice = [1, 2]
+gender_dist = [.48, .52]
+genders = []
+
+# Age
+age = []
+average_age = 80
+
+# ID
+user_id = []
+
+# Birth Dates
+birth_date = []
+birth_year = []
+birth_month = []
+birth_day = []
+yearNow = int(str(datetime.datetime.now()).split()[0].split('-')[0])
+
+# Admission and Discharge Date
+admission_date = []
+discharge_date = []
+lnth_of_stay = []
+icu_day = []
+
+# Admission and Discharge Time
+admission_time = []
+discharge_time = []
+
+# Entry Code
+entry_code = []
+
+# Exit Code
+exit_code = []
+exitcodechoices = ["91", "92", "00", "01"]
+
+# Healt Authority
+ha_code = []
+
+# ICD 10 Code
+icd_num = []
 
 # Random date generator
 
@@ -39,12 +86,7 @@ def month_round(input):
         return 1
 
 
-gender_choice = [1, 2]
-gender_dist = [.48, .52]
-genders = []
-
 # Initial function
-
 
 def generate(amount):
     for i in range(0, amount):
@@ -57,36 +99,34 @@ amount_generate = int(input("Enter amount of data to generate: "))
 generate(amount_generate)
 
 
-# Age generate
+# Age generate old
 
-ten_percent_age = int((amount_generate/100)*10)
+# ten_percent_age = int((amount_generate/100)*10)
 
-young_age = []
-old_age = []
-age = []
+# young_age = []
+# old_age = []
+# age = []
 
-for i in range(0, ten_percent_age):
-    young_age.append(np.random.normal(loc=35))
+# for i in range(0, ten_percent_age):
+#     young_age.append(np.random.normal(loc=35))
 
-for i in range(0, amount_generate - ten_percent_age):
-    old_age.append(np.random.normal(loc=85))
+# for i in range(0, amount_generate - ten_percent_age):
+#     old_age.append(np.random.normal(loc=85))
 
-age = young_age + old_age
-random.shuffle(age)
+# age = young_age + old_age
+# random.shuffle(age)
+
+# Age New
+
+for i in range(0, amount_generate):
+    age.append(np.random.normal(average_age))
 
 # ID
-user_id = []
 
 for ID in age:
     user_id.append(int(id(ID)))
 
 # Birth Date Generate
-
-birth_date = []
-birth_year = []
-birth_month = []
-birth_day = []
-yearNow = int(str(datetime.datetime.now()).split()[0].split('-')[0])
 
 for Age in age:
     birth_year.append(yearNow - round(Age))
@@ -104,11 +144,6 @@ for Age in age:
 
 
 # Admission and Discharge Date
-
-admission_date = []
-discharge_date = []
-lnth_of_stay = []
-icu_day = []
 
 for i in range(0, amount_generate):
 
@@ -130,9 +165,6 @@ for i in range(0, amount_generate):
 
 # Admission and Discharge Time
 
-admission_time = []
-discharge_time = []
-
 for i in range(0, amount_generate):
     admission_time.append(str(random_date("1/1/2020 12:00 AM",
                                           "5/31/2020 11:59 PM", random.random())).split()[1] + " "+str(random.choices(["AM", "PM"])).replace(
@@ -146,47 +178,57 @@ for i in range(0, amount_generate):
 
 # Entry Code
 
-entry_code = []
-
 for i in range(0, amount_generate):
     entry_code.append(str(random.choice(["91", "92"])))
 
 
 # Exit Code
 
-exit_code = []
-
 for i in range(0, amount_generate):
-    exitcodechoices = [91, 92, "%02d" % 0, "%02d" % 1]
     # exit_code.append("%02d" % int(str(random.choices([91, 92, 0, 1])
     #                                   ).replace('[', '').replace(']', '')))
 
-    exit_code.append(str(random.choices(exitcodechoices)).replace('[','').replace(']',''))
+    exit_code.append("_"+str(random.choices(exitcodechoices)
+                             ).replace("['", '').replace("']", ''))
+
+
+# Health Authority
+
+for i in range(0, amount_generate):
+    ha_code.append(str(random.choice([1, 2, 3, 4])))
+
+
+# ICD10
+
+for i in range(0, amount_generate):
+    icd_num.append(str(random.choice(string.ascii_letters)).upper() +
+                   str("{0:0=2d}".format(random.randrange(1, 10**2))))
 
 
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "ICD10 Code": icd_num})
 
 output_name = str(input("Please Enter an Output Name: "))
 
-if (os.path.isfile(output_name+".csv")):
-    # print(output_name+" already exists, please enter another file name!")
+if (not check_duplicate_file):
+    if (os.path.isfile(output_name+".csv")):
+        # print(output_name+" already exists, please enter another file name!")
 
-    df.to_csv(output_name+".csv", index=False)
+        df.to_csv(output_name+".csv", index=False)
 
-    if (".csv" in output_name):
-        output_name.replace('.csv', '')
+        if (".csv" in output_name):
+            output_name.replace('.csv', '')
 
-    print(str(amount_generate) +
-          " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
-else:
+        print(str(amount_generate) +
+              " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
+    else:
 
-    df.to_csv(output_name+".csv", index=False)
+        df.to_csv(output_name+".csv", index=False)
 
-    if (".csv" in output_name):
-        output_name.replace('.csv', '')
+        if (".csv" in output_name):
+            output_name.replace('.csv', '')
 
-    print(str(amount_generate) +
-          " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
+        print(str(amount_generate) +
+              " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
