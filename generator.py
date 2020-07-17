@@ -207,7 +207,8 @@ for i in range(0, amount_generate):
 # ICD10
 
 for i in range(0, amount_generate):
-    icd_letter = str(random.choice(string.ascii_letters)).upper()
+    icd_letter = str(random.choice('abcdefghijklmnopqrstvwxyz')).upper()
+
     icd_number = str("{0:0=2d}".format(random.randrange(1, 10**2)))
     icd_code.append(icd_letter +
                     icd_number)
