@@ -59,7 +59,10 @@ exitcodechoices = ["91", "92", "00", "01"]
 ha_code = []
 
 # ICD 10 Code
-icd_num = []
+icd_code = []
+
+# Department
+department = []
 
 # Random date generator
 
@@ -198,17 +201,40 @@ for i in range(0, amount_generate):
     ha_code.append(str(random.choice([1, 2, 3, 4])))
 
 
+# Department Options
+
+
 # ICD10
 
 for i in range(0, amount_generate):
-    icd_num.append(str(random.choice(string.ascii_letters)).upper() +
-                   str("{0:0=2d}".format(random.randrange(1, 10**2))))
+    icd_letter = str(random.choice(string.ascii_letters)).upper()
+    icd_number = str("{0:0=2d}".format(random.randrange(1, 10**2)))
+    icd_code.append(icd_letter +
+                    icd_number)
+
+    if (icd_letter == 'A' or icd_letter == 'B'):
+        department.append("Infectious and parasitic diseases")
+    elif (icd_letter == 'C'):
+        department.append("Neoplasms")
+    elif (icd_letter == 'D' and icd_number in range(0, 49)):
+        department.append("Neoplasms")
+    elif (icd_letter == 'D' and icd_number in range(50, 90)):
+        department.append(
+            "Blood and blood-forming organs and certain disorders involving the immune mechanism")
+    elif (icd_letter == 'E' and icd_number in range(0, 91)):
+        department.append(
+            "Endocrine, nutritional and metabolic diseases")
+    elif (icd_letter == 'E' and icd_number in range(91, 101)):
+        department.append(
+            "Error, ICD-10 Chapter Not Found")
+    else:
+        department.append("Other")
 
 
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "ICD10 Code": icd_num})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "ICD-10 Code": icd_code, "ICD-10 Chapter": department})
 
 output_name = str(input("Please Enter an Output Name: "))
 
