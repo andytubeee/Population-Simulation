@@ -213,20 +213,111 @@ for i in range(0, amount_generate):
                     icd_number)
 
     if (icd_letter == 'A' or icd_letter == 'B'):
-        department.append("Infectious and parasitic diseases")
+        department.append("Certain infectious and parasitic diseases")
     elif (icd_letter == 'C'):
         department.append("Neoplasms")
-    elif (icd_letter == 'D' and icd_number in range(0, 49)):
-        department.append("Neoplasms")
-    elif (icd_letter == 'D' and icd_number in range(50, 90)):
+    elif (icd_letter == 'D'):
+        # 0 - 49
+        if (int(icd_number) in range(0, 49)):
+            department.append("Neoplasms")
+        elif(int(icd_number) in range(50, 90)):
+            department.append(
+                "Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism")
+        else:
+            department.append("Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'E'):
+        if (int(icd_number) in range(0, 91)):
+            department.append(
+                "Endocrine, nutritional and metabolic diseases")
+        else:
+            department.append(
+                "Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'F'):
         department.append(
-            "Blood and blood-forming organs and certain disorders involving the immune mechanism")
-    elif (icd_letter == 'E' and icd_number in range(0, 91)):
+            "Mental and behavioural disorders")
+    elif (icd_letter == 'G'):
         department.append(
-            "Endocrine, nutritional and metabolic diseases")
-    elif (icd_letter == 'E' and icd_number in range(91, 101)):
+            "Diseases of the nervous system")
+    elif (icd_letter == 'H'):
+        if(int(icd_number) in range(0, 60)):
+            department.append(
+                "Diseases of the eye and adnexa")
+        elif (int(icd_number) in range(60, 96)):
+            department.append(
+                "Diseases of the ear and mastoid process")
+        else:
+            department.append(
+                "Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'I'):
+        department.append(
+            "Diseases of the ear and mastoid process")
+    elif (icd_letter == 'J'):
+        department.append(
+            "Diseases of the respiratory system")
+    elif (icd_letter == 'K'):
+        if (int(icd_number) in range(0, 94)):
+            department.append(
+                "Diseases of the digestive system")
+        else:
+            department.append(
+                "Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'L'):
+        department.append(
+            "Diseases of the skin and subcutaneous tissue")
+    elif (icd_letter == 'M'):
+        department.append(
+            "Diseases of the musculoskeletal system and connective tissue")
+    elif (icd_letter == 'N'):
+        department.append(
+            "Diseases of the genitourinary system")
+    elif (icd_letter == 'O'):
+        department.append(
+            "Pregnancy, childbirth and the puerperium")
+    elif (icd_letter == 'P'):
+        if(int(icd_number) in range(0, 97)):
+            department.append(
+                "Certain conditions originating in the perinatal period")
+        else:
+            department.append(
+                "Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'Q'):
+        department.append(
+            "Congenital malformations, deformations and chromosomal abnormalities")
+    elif (icd_letter == 'R'):
+        department.append(
+            "Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified")
+    elif (icd_letter == 'S'):
+        department.append(
+            "Injury, poisoning and certain other consequences of external causes")
+    elif (icd_letter == 'T'):
+        if (int(icd_number) in range(0, 99)):
+            department.append(
+                "Injury, poisoning and certain other consequences of external causes")
+        else:
+            department.append(
+                "Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'U'):
         department.append(
             "Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'V'):
+        department.append(
+            "External causes of morbidity and mortality")
+    elif (icd_letter == 'W'):
+        department.append(
+            "External causes of morbidity and mortality")
+    elif (icd_letter == 'X'):
+        department.append(
+            "External causes of morbidity and mortality")
+    elif (icd_letter == 'Y'):
+        if(int(icd_number) in range(0, 99)):
+            department.append(
+                "External causes of morbidity and mortality")
+        else:
+            department.append(
+                "Error, ICD-10 Chapter Not Found")
+    elif (icd_letter == 'Z'):
+        department.append(
+            "Factors influencing health status and contact with health services")
     else:
         department.append("Other")
 
