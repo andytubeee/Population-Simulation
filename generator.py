@@ -209,7 +209,27 @@ for i in range(0, amount_generate):
 for i in range(0, amount_generate):
     icd_letter = str(random.choice('abcdefghijklmnopqrstvwxyz')).upper()
 
-    icd_number = str("{0:0=2d}".format(random.randrange(1, 10**2)))
+    icd_number = str("{0:0=2d}".format(random.randrange(0, 10**2)))
+
+    # Remove Invalid ICD Number
+
+    if (icd_letter == 'D'):
+        icd_number = str("{0:0=2d}".format(random.randrange(0, 90)))
+        if (icd_number == "49"):
+            icd_number = "50"
+    if (icd_letter == 'E'):
+        icd_number = str("{0:0=2d}".format(random.randrange(0, 91)))
+    if (icd_letter == 'H'):
+        icd_number = str("{0:0=2d}".format(random.randrange(0, 96)))
+    if (icd_letter == 'K'):
+        icd_number = str("{0:0=2d}".format(random.randrange(0, 94)))
+    if (icd_letter == 'P'):
+        icd_number = str("{0:0=2d}".format(random.randrange(0, 97)))
+    if (icd_letter == 'T'):
+        icd_number = str("{0:0=2d}".format(random.randrange(0, 99)))
+    if (icd_letter == 'Y'):
+        icd_number = str("{0:0=2d}".format(random.randrange(0, 99)))
+
     icd_code.append(icd_letter +
                     icd_number)
 
