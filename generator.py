@@ -232,3 +232,15 @@ if (not check_duplicate_file):
 
         print(str(amount_generate) +
               " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
+else:
+    if (os.path.isfile(output_name+".csv")):
+        print(output_name+" already exists, please enter another file name!")
+    else:
+
+        df.to_csv(output_name+".csv", index=False)
+
+        if (".csv" in output_name):
+            output_name.replace('.csv', '')
+
+        print(str(amount_generate) +
+              " datasets has been successfully generated and saved to "+str(os.getcwd())+"\\"+output_name+".csv")
