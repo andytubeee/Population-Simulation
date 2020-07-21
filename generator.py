@@ -55,7 +55,7 @@ entry_code = []
 exit_code = []
 exitcodechoices = ["91", "92", "00", "01"]
 
-# Healt Authority
+# Health Authority
 ha_code = []
 
 # ICD 10 Code
@@ -63,6 +63,12 @@ icd_code = []
 
 # Department
 department = []
+
+# Operative death code
+od_code = []
+
+# Supplementry Death Code:
+sd_code = []
 
 # Random date generator
 
@@ -343,10 +349,21 @@ for i in range(0, amount_generate):
         department.append("Other")
 
 
+# Operative Death Code
+
+for i in range(0, amount_generate):
+    od_code.append(str(random.choice(["_91", "_92", "_00", "_01", "_02"])))
+
+# Supplementary Death Code
+
+for i in range(0, amount_generate):
+    sd_code.append(str(random.choice(["_91", "_92", "_00", "_01"])))
+
+
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "ICD-10 Code": icd_code, "ICD-10 Chapter": department})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "Operative Death Code": od_code, "Supplementary Death Code": sd_code, "ICD-10 Code": icd_code, "ICD-10 Chapter": department})
 
 output_name = str(input("Please Enter an Output Name: "))
 
