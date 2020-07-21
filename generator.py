@@ -96,45 +96,104 @@ def month_round(input):
         return 1
 
 
+def average_int(average):
+    return np.random.normal(average)
+
+
 # Initial function
-
-def generate(amount):
-    for i in range(0, amount):
-        genders.append(str(random.choices(gender_choice, gender_dist)
-                           ).replace('[', '').replace(']', ''))
-
 
 amount_generate = int(input("Enter amount of data to generate: "))
 
-generate(amount_generate)
+# Gender and Age
+
+male_age = []
+
+reg_age = []
+age_case = []
+high_age = 93
+fem_age = []
+
+for i in range(0, amount_generate):
+    rand_gender = str(random.choices(gender_choice, gender_dist)
+                      ).replace('[', '').replace(']', '')
+    genders.append(rand_gender)
+
+    male_count = int(genders.count("1"))
+
+    case_percent = int((male_count/100)*10)
+
+    if (rand_gender == "1"):
+        age.append(np.random.normal(90))
+    else:
+        age.append(average_int(71))
+
+# for g in genders:
+#     if (int(g)==1):
+#         ten_percent_male_age = int((male_count/100)*10)
+#         for i in range (0, ten_percent_male_age):
+#             age_case.append(np.random.normal(high_age))
+#         for i in range (0, male_count-ten_percent_male_age):
+#             reg_age.append(average_age)
+
+#         male_age = age_case + reg_age
+#     else:
+#         for i in range(0, amount_generate-male_count):
+#             fem_age.append(np.random.normal(average_age))
+
+#     age = male_age+fem_age
 
 
-# Age generate old
+genders.sort()
+age.sort(reverse=True)
+
+temp_group = list(zip(genders, age))
+random.shuffle(temp_group)
+
+genders, age = zip(*temp_group)
+
+
+# # Age generate old
 
 # ten_percent_age = int((amount_generate/100)*10)
 
-# young_age = []
-# old_age = []
-# age = []
-
 # for i in range(0, ten_percent_age):
-#     young_age.append(np.random.normal(loc=35))
+#     age_case.append(np.random.normal(high_age))
 
 # for i in range(0, amount_generate - ten_percent_age):
-#     old_age.append(np.random.normal(loc=85))
+#     reg_age.append(np.random.normal(average_age-1))
 
-# age = young_age + old_age
+# age = age_case + reg_age
 # random.shuffle(age)
 
 # Age New
+# male_age = []
+# fem_age = []
+# global male_count
+# male_count = 0
 
-for i in range(0, amount_generate):
-    age.append(np.random.normal(average_age))
+# for g in genders:
+#     if int(g) == 1:
+#         male_count += 1
+# ten_percent_age = int((male_count/100)*10)
+# for i in range(0, ten_percent_age):
+#     age_case.append(np.random.normal(loc=high_age))
+# for i in range(0, male_count - ten_percent_age):
+#     reg_age.append(np.random.normal(loc=average_age-1))
+
+# male_age = age_case + reg_age
+# random.shuffle(male_age)
+
+# for i in range(0, amount_generate-male_count):
+#     fem_age.append(np.random.normal(40))
+
+
+# age = male_age+fem_age
+# random.shuffle(age)
 
 # ID
 
 for ID in age:
-    user_id.append(int(id(ID)))
+    user_id.append(str(int(id(ID)))[3:])
 
 # Birth Date Generate
 
@@ -155,7 +214,13 @@ for Age in age:
 
 # Admission and Discharge Date
 
-for i in range(0, amount_generate):
+global random_stay_date
+
+for Age in age:
+    if Age >= 80:
+        random_stay_date = random.randint(14, 30)
+    else:
+        random_stay_date = random.randint(1, 12)
 
     admdate = random_date("1/1/2020 12:00 AM",
                           "5/31/2020 11:59 PM", random.random())
@@ -164,13 +229,14 @@ for i in range(0, amount_generate):
     admdate_day = str(admdate).split()[0].split('/')[1]
     admdate_month = str(admdate).split()[0].split('/')[0]
 
-    random_stay_date = random.randint(1, 12)
-
     discharge_date.append(pd.to_datetime(
         str(admdate).split()[0]) + pd.DateOffset(days=random_stay_date))
 
     lnth_of_stay.append(random_stay_date)
     icu_day.append(random.randint(0, random_stay_date))
+
+for i in range(0, amount_generate):
+    pass
 
 
 # Admission and Discharge Time
