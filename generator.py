@@ -111,7 +111,7 @@ male_age = []
 
 reg_age = []
 age_case = []
-high_age = 92
+high_age = 93
 fem_age = []
 
 for i in range(0, amount_generate):
@@ -126,7 +126,7 @@ male_count = int(genders.count("1"))
 ten_percent = int((male_count/100)*case_percent)
 
 for i in range(0, genders.count("2")):
-    fem_age.append(average_int(79))
+    fem_age.append(average_int(80))
 
 
 for i in range(0, ten_percent):
@@ -135,10 +135,10 @@ for i in range(0, int(male_count)-ten_percent):
     reg_age.append(average_int(average_age-1))
 
 
-print(male_count)
-print(ten_percent)
-print(age_case)
-print(len(fem_age))
+# print(male_count)
+# print(ten_percent)
+# print(age_case)
+# print(len(fem_age))
 
 age = age_case+reg_age+fem_age
 age.sort()
