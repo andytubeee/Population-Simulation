@@ -72,6 +72,9 @@ od_code = []
 # Supplementry Death Code:
 sd_code = []
 
+# Procedure Code
+pro_code = []
+
 # Random date generator
 
 
@@ -211,7 +214,8 @@ genders, age = zip(*temp_group)
 # ID
 
 for ID in age:
-    user_id.append(str(int(id(ID)))[3:])
+    # user_id.append(str(int(id(ID)))[3:])
+    user_id.append(str(uuid.uuid4()).split('-')[0][:9])
 
 # Birth Date Generate
 
@@ -444,11 +448,17 @@ for i in range(0, amount_generate):
 for i in range(0, amount_generate):
     sd_code.append(str(random.choice(["_91", "_92", "_00", "_01"])))
 
+# Procedure Code
+
+for i in range(0, amount_generate):
+    pro_code.append(
+        "_"+str("{0:0=2d}".format(random.choice([91, 92, 0, 1, 2, 3, 4, 5, 6, 7]))))
+
 
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "Operative Death Code": od_code, "Supplementary Death Code": sd_code, "ICD-10 Code": icd_code, "ICD-10 Chapter": department})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "Operative Death Code": od_code, "Supplementary Death Code": sd_code, "Procedure Code": pro_code, "ICD-10 Code": icd_code, "ICD-10 Chapter": department})
 
 output_name = str(input("Please Enter an Output Name: "))
 
