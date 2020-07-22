@@ -142,7 +142,7 @@ for i in range(0, int(male_count)-ten_percent):
 
 age = age_case+reg_age+fem_age
 age.sort()
-print(age)
+# print(age)
 
 
 # for g in genders:
@@ -162,7 +162,7 @@ print(age)
 
 
 genders.sort(reverse=True)
-print(genders)
+# print(genders)
 
 temp_group = list(zip(genders, age))
 random.shuffle(temp_group)
