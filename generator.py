@@ -28,6 +28,7 @@ genders = []
 # Age
 age = []
 average_age = 80
+case_percent = 10
 
 # ID
 user_id = []
@@ -110,22 +111,39 @@ male_age = []
 
 reg_age = []
 age_case = []
-high_age = 93
+high_age = 92
 fem_age = []
 
 for i in range(0, amount_generate):
     rand_gender = str(random.choices(gender_choice, gender_dist)
                       ).replace('[', '').replace(']', '')
     genders.append(rand_gender)
+    age.append(80.0)
 
-    male_count = int(genders.count("1"))
 
-    case_percent = int((male_count/100)*10)
+male_count = int(genders.count("1"))
 
-    if (rand_gender == "1"):
-        age.append(np.random.normal(90))
-    else:
-        age.append(average_int(71))
+ten_percent = int((male_count/100)*case_percent)
+
+for i in range(0, genders.count("2")):
+    fem_age.append(average_int(79))
+
+
+for i in range(0, ten_percent):
+    age_case.append(average_int(high_age))
+for i in range(0, int(male_count)-ten_percent):
+    reg_age.append(average_int(average_age-1))
+
+
+print(male_count)
+print(ten_percent)
+print(age_case)
+print(len(fem_age))
+
+age = age_case+reg_age+fem_age
+age.sort()
+print(age)
+
 
 # for g in genders:
 #     if (int(g)==1):
@@ -143,8 +161,8 @@ for i in range(0, amount_generate):
 #     age = male_age+fem_age
 
 
-genders.sort()
-age.sort(reverse=True)
+genders.sort(reverse=True)
+print(genders)
 
 temp_group = list(zip(genders, age))
 random.shuffle(temp_group)
