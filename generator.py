@@ -26,6 +26,9 @@ gender_dist = [.48, .52]
 genders = []
 
 # Age
+
+reg_age_gen = True
+
 age = []
 average_age = 80
 case_percent = 10
@@ -75,6 +78,11 @@ sd_code = []
 # Procedure Code
 pro_code = []
 
+# Environment
+environ_department = []
+
+#####################################################################################################################################################################
+
 # Random date generator
 
 
@@ -121,21 +129,25 @@ for i in range(0, amount_generate):
     rand_gender = str(random.choices(gender_choice, gender_dist)
                       ).replace('[', '').replace(']', '')
     genders.append(rand_gender)
-    age.append(80.0)
+    # age.append(80.0)
 
+if (reg_age_gen == True):
+    for i in range(0, amount_generate):
+        age.append(np.random.normal(80))
+else:
+    male_count = int(genders.count("1"))
 
-male_count = int(genders.count("1"))
+    ten_percent = int((male_count/100)*case_percent)
 
-ten_percent = int((male_count/100)*case_percent)
+    for i in range(0, genders.count("2")):
+        fem_age.append(average_int(80))
 
-for i in range(0, genders.count("2")):
-    fem_age.append(average_int(80))
+    for i in range(0, ten_percent):
+        age_case.append(average_int(high_age))
+    for i in range(0, int(male_count)-ten_percent):
+        reg_age.append(average_int(average_age-1))
 
-
-for i in range(0, ten_percent):
-    age_case.append(average_int(high_age))
-for i in range(0, int(male_count)-ten_percent):
-    reg_age.append(average_int(average_age-1))
+    age = age_case+reg_age+fem_age
 
 
 # print(male_count)
@@ -143,7 +155,7 @@ for i in range(0, int(male_count)-ten_percent):
 # print(age_case)
 # print(len(fem_age))
 
-age = age_case+reg_age+fem_age
+
 age.sort()
 # print(age)
 
@@ -454,11 +466,16 @@ for i in range(0, amount_generate):
     pro_code.append(
         "_"+str("{0:0=2d}".format(random.choice([91, 92, 0, 1, 2, 3, 4, 5, 6, 7]))))
 
+# Hospital or Clinic
+
+for i in range(0, amount_generate):
+    environ_department.append(str(random.choice(["Hospital", "Clinic"])))
+
 
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "Operative Death Code": od_code, "Supplementary Death Code": sd_code, "Procedure Code": pro_code, "ICD-10 Code": icd_code, "ICD-10 Chapter": department})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Entry Code": entry_code, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "Operative Death Code": od_code, "Supplementary Death Code": sd_code, "Procedure Code": pro_code, "ICD-10 Code": icd_code, "ICD-10 Chapter": department, "Environment": environ_department})
 
 output_name = str(input("Please Enter an Output Name: "))
 
