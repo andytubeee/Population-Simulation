@@ -27,7 +27,7 @@ genders = []
 
 # Age
 
-reg_age_gen = True
+reg_age_gen = False
 
 age = []
 average_age = 80
@@ -81,6 +81,9 @@ pro_code = []
 # Environment
 environ_department = []
 
+# CCI Code
+cci_code = []
+
 #####################################################################################################################################################################
 
 # Random date generator
@@ -133,19 +136,19 @@ for i in range(0, amount_generate):
 
 if (reg_age_gen == True):
     for i in range(0, amount_generate):
-        age.append(np.random.normal(80))
+        age.append(round(np.random.normal(80), 1))
 else:
     male_count = int(genders.count("1"))
 
     ten_percent = int((male_count/100)*case_percent)
 
     for i in range(0, genders.count("2")):
-        fem_age.append(average_int(80))
+        fem_age.append(round(average_int(80), 1))
 
     for i in range(0, ten_percent):
-        age_case.append(average_int(high_age))
+        age_case.append(round(average_int(high_age), 1))
     for i in range(0, int(male_count)-ten_percent):
-        reg_age.append(average_int(average_age-1))
+        reg_age.append(round(average_int(average_age-1), 1))
 
     age = age_case+reg_age+fem_age
 
@@ -227,7 +230,8 @@ genders, age = zip(*temp_group)
 
 for ID in age:
     # user_id.append(str(int(id(ID)))[3:])
-    user_id.append(str(uuid.uuid4()).split('-')[0][:9])
+    # user_id.append(str(uuid.uuid4()).split('-')[0][:9])
+    user_id.append(uuid.uuid4().node)
 
 # Birth Date Generate
 
@@ -267,7 +271,11 @@ for Age in age:
         str(admdate).split()[0]) + pd.DateOffset(days=random_stay_date))
 
     lnth_of_stay.append(random_stay_date)
-    icu_day.append(random.randint(0, random_stay_date))
+    icu_len = random.randint(0, random_stay_date)
+    if (icu_len == random_stay_date):
+        icu_len = 0
+    icu_day.append(icu_len)
+
 
 for i in range(0, amount_generate):
     pass
@@ -298,8 +306,8 @@ for i in range(0, amount_generate):
     # exit_code.append("%02d" % int(str(random.choices([91, 92, 0, 1])
     #                                   ).replace('[', '').replace(']', '')))
 
-    exit_code.append("_"+str(random.choices(exitcodechoices)
-                             ).replace("['", '').replace("']", ''))
+    exit_code.append(str(random.choices(exitcodechoices)
+                         ).replace("['", '').replace("']", ''))
 
 
 # Health Authority
@@ -452,19 +460,20 @@ for i in range(0, amount_generate):
 
 # Operative Death Code
 
-for i in range(0, amount_generate):
-    od_code.append(str(random.choice(["_91", "_92", "_00", "_01", "_02"])))
-
+for i in range(0, int((amount_generate/100)*90)):
+    od_code.append(str(random.choice(["01"])))
+for i in range(0, int((amount_generate/100)*10)):
+    od_code.append(str(random.choice(["00"])))
 # Supplementary Death Code
 
 for i in range(0, amount_generate):
-    sd_code.append(str(random.choice(["_91", "_92", "_00", "_01"])))
+    sd_code.append(str(random.choice(["91", "92", "00", "01"])))
 
 # Procedure Code
 
 for i in range(0, amount_generate):
-    pro_code.append(
-        "_"+str("{0:0=2d}".format(random.choice([91, 92, 0, 1, 2, 3, 4, 5, 6, 7]))))
+    pro_code.append(str("{0:0=2d}".format(
+        random.choice([0, 1, 2, 3, 4, 5, 6, 7]))))
 
 # Hospital or Clinic
 
