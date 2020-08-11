@@ -58,7 +58,7 @@ entry_code = []
 
 # Exit Code
 exit_code = []
-exitcodechoices = ["91", "92", "00", "01"]
+exitcodechoices = ["00", "01"]
 
 # Health Authority
 ha_code = []
@@ -86,7 +86,7 @@ cci_ver = []
 cci_desc = []
 cci = []
 
-#####################################################################################################################################################################
+#############################################################################################################################################################
 
 # Random date generator
 
@@ -522,10 +522,12 @@ for i in icu_day:
         cci_desc.append(str(scan_proc).replace("['", '').replace("']", ''))
         if (str(scan_proc).replace("['", '').replace("']", '') == "Scan"):
             rand_scan_cci_code = random.choice(["3FU70CA", "3FU70CC", "3FU70CE", "3OA70CE", "3OC70CB", "3OC70CD", "3PC70CC", "3PC70TF", "3PC70SQ", "3NZ70MX", "3NZ70MY", "3NZ70MZ", "3NZ70SC", "3IP70KG", "3IP70KS", "3LZ70CC", "3PB70CA", "3PB70CC", "3AN70CB", "3AN70CD", "3FV70CC", "3GT70CA", "3GT70CE", "3GT70KD", "3AW70CD", "3AW70CF",
-                                          "3CU70CC", "3FP70CC", "3KR70ZZ", "3OD70CE", "3OT70CE", "3PZ70TK", "3PZ70TL", "3QG70CA", "3QG70CB", "3QG70CC", "3QG70CE", "3RM70CA", "3RM70CC", "3RM70CE", "3SC70CA", "3SC70CC", "3SC70CE", "3TA70CA", "3TA70CC", "3TM70CA", "3NZ70SE", "3NZ70SN", "3NZ70SP", "3NZ70TB", "3NZ70TC", "3OC70KP", "3OC70CE", "3OC70CC"])
-            cci.append(str(rand_scan_cci_code).replace("['", '').replace("']", ''))
+                                                "3CU70CC", "3FP70CC", "3KR70ZZ", "3OD70CE", "3OT70CE", "3PZ70TK", "3PZ70TL", "3QG70CA", "3QG70CB", "3QG70CC", "3QG70CE", "3RM70CA", "3RM70CC", "3RM70CE", "3SC70CA", "3SC70CC", "3SC70CE", "3TA70CA", "3TA70CC", "3TM70CA", "3NZ70SE", "3NZ70SN", "3NZ70SP", "3NZ70TB", "3NZ70TC", "3OC70KP", "3OC70CE", "3OC70CC"])
+            cci.append(str(rand_scan_cci_code).replace(
+                "['", '').replace("']", ''))
         else:
-            rand_other_cci_code = random.choice(["2KG28TP","2KG28ZZ","2KG29TA","2KG29TP","2LZ28JA","2LZ28JAPL","2ZZ02ZS","2ET70BA","2FA70BA","2FX70BA","2FX70LA","2GM70BA","1NA35BAX4","2NA70BA","2NA70BN","2NF70BA","2NF70BN","2OW70BN","2NM70BABH","2NM70BNBG","2NT70BA","2DE70CA","2PQ70BA","2RS70CA","2GJ70BA","3AF20WA","3AF20WE","3FE10AR","3FE10AQ","3CU12VA","3EE12VA","3SF12VL","3SC10KM"])
+            rand_other_cci_code = random.choice(["2KG28TP", "2KG28ZZ", "2KG29TA", "2KG29TP", "2LZ28JA", "2LZ28JAPL", "2ZZ02ZS", "2ET70BA", "2FA70BA", "2FX70BA", "2FX70LA", "2GM70BA", "1NA35BAX4", "2NA70BA", "2NA70BN",
+                                                 "2NF70BA", "2NF70BN", "2OW70BN", "2NM70BABH", "2NM70BNBG", "2NT70BA", "2DE70CA", "2PQ70BA", "2RS70CA", "2GJ70BA", "3AF20WA", "3AF20WE", "3FE10AR", "3FE10AQ", "3CU12VA", "3EE12VA", "3SF12VL", "3SC10KM"])
             cci.append(rand_other_cci_code)
 
 
