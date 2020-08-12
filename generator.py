@@ -58,7 +58,6 @@ entry_code = []
 
 # Exit Code
 exit_code = []
-exitcodechoices = ["00", "01"]
 
 # Health Authority
 ha_code = []
@@ -232,10 +231,25 @@ age = np.array(age)
 
 # ID
 
+def checkIfDuplicates(arr):
+    ''' Check if array contains any duplicates '''
+    if len(arr) == len(set(arr)):
+        return False
+    else:
+        return True
+
+
 for ID in age:
     # user_id.append(str(int(id(ID)))[3:])
     # user_id.append(str(uuid.uuid4()).split('-')[0][:9])
-    user_id.append(uuid.uuid4().node)
+    user_id.append(str(uuid.uuid1().int)[4:16])
+
+    while checkIfDuplicates(user_id):
+        user_id.clear()
+        user_id.append(str(uuid.uuid1().int)[4:16])
+
+        if not checkIfDuplicates(user_id):
+            break
 
 # Birth Date Generate
 
@@ -314,8 +328,8 @@ for i in range(0, amount_generate):
 for i in range(0, amount_generate):
     # exit_code.append("%02d" % int(str(random.choices([91, 92, 0, 1])
     #                                   ).replace('[', '').replace(']', '')))
-
-    exit_code.append(str(random.choices(exitcodechoices)
+    exitcodechoices = ["00", "01"]
+    exit_code.append(str(random.choice(exitcodechoices)
                          ).replace("['", '').replace("']", ''))
 
 
