@@ -470,9 +470,9 @@ diag2 = []
 for i in range(0, amount_generate):
     diag2.append("N/A")
 
-for x in range(0, int((amount_generate / 100) * 10)):
+for x in range(0, int(int((amount_generate / 100) * 10.5) + 1)):
     i = random.randint(0, amount_generate)
-    icd_code[i] = str(random.choices(["U07.1", "U07.2"], [.5, .5])).replace(
+    icd_code[i] = str(np.random.choice(["U07.1", "U07.2"], p=[0.5, 0.5])).replace(
         "['", '').replace("']", '')
 
     if (icd_code[i] == 'U07.1'):
@@ -491,8 +491,8 @@ for x in range(0, int((amount_generate / 100) * 10)):
     lnth_of_stay[i] = str(random.randint(4, 21)).replace(
         "['", '').replace("']", '')
 
-    genders[i] = str(random.choices(
-        ["1", "2"], [.5, .5])).replace(
+    genders[i] = str(np.random.choice(
+        ["1", "2"], p=[0.5, 0.5])).replace(
         "['", '').replace("']", '')
 
     age[i] = 65
