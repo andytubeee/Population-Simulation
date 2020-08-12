@@ -1,7 +1,7 @@
 # Population Simulation HLTH 620 
 
-1. Please install python here: https://www.python.org/downloads/
-2. After installation, please check that Python is added to the system environment path, you can test if python is successfully installed by running `python --version` 
+1. Please install Python here: https://www.python.org/downloads/
+2. After installation, please check that Python is added to the system environment path, you can test if Python is successfully installed by running `python --version` 
 This command will output the Python version installed on your machine.
 3. Please run the script with this command in the command prompt in Windows or terminal in Linux:
 `python generator.py` 
