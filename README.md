@@ -12,4 +12,6 @@ Note: Run this command in the same directory as the generator.py script
 
 5. Enter an output file name. You can change the setting to check for duplicate file, the default settings is off, which means it will overwrite the exisiting file.
 
-6. After successfully generated, it will tell you where the file is saved. This means you can close the python window now.
+6. After successfully generated, it will tell you where the file is saved. This means you can now close the Python window.
+
+Errors: The script will crash sometime due to large number to generate. Don't worry, this is normal, please close and restart the script. 
