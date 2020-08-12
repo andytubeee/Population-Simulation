@@ -189,6 +189,8 @@ random.shuffle(temp_group)
 
 genders, age = zip(*temp_group)
 
+genders = np.array(genders)
+age = np.array(age)
 
 # # Age generate old
 
@@ -439,9 +441,6 @@ for i in range(0, amount_generate):
         else:
             department.append(
                 "Error, ICD-10 Chapter Not Found")
-    elif (icd_letter == 'U'):
-        department.append(
-            "Error, ICD-10 Chapter Not Found")
     elif (icd_letter == 'V'):
         department.append(
             "External causes of morbidity and mortality")
@@ -463,6 +462,47 @@ for i in range(0, amount_generate):
             "Factors influencing health status and contact with health services")
     else:
         department.append("Other")
+
+# COVID ONLY
+
+diag2 = []
+
+for i in range(0, amount_generate):
+    diag2.append("N/A")
+
+for x in range(0, int((amount_generate / 100) * 10)):
+    i = random.randint(0, amount_generate)
+    icd_code[i] = str(random.choices(["U07.1", "U07.2"], [.5, .5])).replace(
+        "['", '').replace("']", '')
+
+    if (icd_code[i] == 'U07.1'):
+        department[i] = "Confirmed COVID"
+    elif (icd_code[i] == 'U07.2'):
+        department[i] = "Suspect COVID"
+
+    diag2[i] = str(random.choices([random.choice(["Asthma: J45.909", "COPD: J44.9", "Cancer: C80.1",
+                                                  "Cardiovascular Disease: I51.9", "Immuno-Compromised: D84.9", "Diabetes: E11.9"]), "N/A"], [.25, .75])).replace(
+        "['", '').replace("']", '')
+
+    icu_day[i] = int(str(random.choices(
+        [str(random.randint(4, 19)), "0"], [.35, .65])).replace(
+        "['", '').replace("']", ''))
+
+    lnth_of_stay[i] = str(random.randint(4, 21)).replace(
+        "['", '').replace("']", '')
+
+    genders[i] = str(random.choices(
+        ["1", "2"], [.5, .5])).replace(
+        "['", '').replace("']", '')
+
+    age[i] = 65
+
+# HAB
+health_auth_br = []
+
+for i in range(0, amount_generate):
+    health_auth_br.append(str(random.choices(["Fraser", "Interior", "Northern", "Vancouver Coastal",
+                                              "Vancouver Island"], [.53, .10, .03, .30, .04])).replace("['", '').replace("']", ''))
 
 
 # Operative Death Code
@@ -534,7 +574,7 @@ for i in icu_day:
 # Saving to CSV
 
 df = pd.DataFrame({"Patient ID": user_id, "Gender": genders, "Age": age,
-                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "Operative Death Code": od_code, "Supplementary Death Code": sd_code, "Procedure Code": pro_code, "Version Year": cci_ver, "CCI": cci, "CCI Description": cci_desc, "ICD-10 Code": icd_code, "ICD-10 Chapter": department, "Environment": environ_department})
+                   "Birth Year": birth_year, "Birth Month": birth_month, "Birth Day": birth_day, "Birth Date": birth_date, "Exit Code": exit_code, "Admission Date": admission_date, "Admission Time": admission_time, "Discharge Date": discharge_date, "Discharge Time": discharge_time, "Total Length of Stay": lnth_of_stay, "Intensive Care Unit Days": icu_day, "Health Authority Code": ha_code, "Health Authority Breakdown": health_auth_br, "Operative Death Code": od_code, "Supplementary Death Code": sd_code, "Procedure Code": pro_code, "Version Year": cci_ver, "CCI": cci, "CCI Description": cci_desc, "ICD-10 Code": icd_code, "ICD-10 Chapter": department, "Secondary Diagnosis": diag2, "Environment": environ_department})
 
 output_name = str(input("Please Enter an Output Name: "))
 
