@@ -7,6 +7,9 @@ This command will output the Python version installed on your machine.
 
 `python generator.py` 
 Note: Run this command in the same directory as the generator.py script
+
 4. Enter amount of data to generate
+
 5. Enter an output file name. You can change the setting to check for duplicate file, the default settings is off, which means it will overwrite the exisiting file.
+
 6. After successfully generated, it will tell you where the file is saved. This means you can close the python window now.
