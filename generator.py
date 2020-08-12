@@ -143,42 +143,21 @@ else:
 
     ten_percent = int((male_count/100)*case_percent)
 
+    # Regular female age
     for i in range(0, genders.count("2")):
         fem_age.append(round(average_int(80), 1))
 
+    # Higher age for male
     for i in range(0, ten_percent):
         age_case.append(round(average_int(high_age), 1))
+    # Lower age for male
     for i in range(0, int(male_count)-ten_percent):
         reg_age.append(round(average_int(average_age-1), 1))
 
     age = age_case+reg_age+fem_age
 
 
-# print(male_count)
-# print(ten_percent)
-# print(age_case)
-# print(len(fem_age))
-
-
 age.sort()
-# print(age)
-
-
-# for g in genders:
-#     if (int(g)==1):
-#         ten_percent_male_age = int((male_count/100)*10)
-#         for i in range (0, ten_percent_male_age):
-#             age_case.append(np.random.normal(high_age))
-#         for i in range (0, male_count-ten_percent_male_age):
-#             reg_age.append(average_age)
-
-#         male_age = age_case + reg_age
-#     else:
-#         for i in range(0, amount_generate-male_count):
-#             fem_age.append(np.random.normal(average_age))
-
-#     age = male_age+fem_age
-
 
 genders.sort(reverse=True)
 # print(genders)
@@ -191,45 +170,8 @@ genders, age = zip(*temp_group)
 genders = np.array(genders)
 age = np.array(age)
 
-# # Age generate old
-
-# ten_percent_age = int((amount_generate/100)*10)
-
-# for i in range(0, ten_percent_age):
-#     age_case.append(np.random.normal(high_age))
-
-# for i in range(0, amount_generate - ten_percent_age):
-#     reg_age.append(np.random.normal(average_age-1))
-
-# age = age_case + reg_age
-# random.shuffle(age)
-
-# Age New
-# male_age = []
-# fem_age = []
-# global male_count
-# male_count = 0
-
-# for g in genders:
-#     if int(g) == 1:
-#         male_count += 1
-# ten_percent_age = int((male_count/100)*10)
-# for i in range(0, ten_percent_age):
-#     age_case.append(np.random.normal(loc=high_age))
-# for i in range(0, male_count - ten_percent_age):
-#     reg_age.append(np.random.normal(loc=average_age-1))
-
-# male_age = age_case + reg_age
-# random.shuffle(male_age)
-
-# for i in range(0, amount_generate-male_count):
-#     fem_age.append(np.random.normal(40))
-
-
-# age = male_age+fem_age
-# random.shuffle(age)
-
 # ID
+
 
 def checkIfDuplicates(arr):
     ''' Check if array contains any duplicates '''
@@ -497,7 +439,7 @@ try:
         elif (icd_code[i] == 'U07.2'):
             department[i] = "Suspect COVID"
 
-        diag2[i] = str(random.choices([random.choice(["Asthma: J45.909", "COPD: J44.9", "Cancer: C80.1",                                                  "Cardiovascular Disease: I51.9", "Immuno-Compromised: D84.9", "Diabetes: E11.9"]), "N/A"], [.25, .75])).replace(
+        diag2[i] = str(random.choices([random.choice(["Asthma: J45.909", "COPD: J44.9", "Cancer: C80.1", "Cardiovascular Disease: I51.9", "Immuno-Compromised: D84.9","Diabetes: E11.9"]), "N/A"], [.25, .75])).replace(
             "['", '').replace("']", '')
 
         icu_day[i] = int(str(random.choices(
@@ -514,7 +456,7 @@ try:
         age[i] = round(np.random.normal(65, 10), 1)
 
         while (age[i] > 95):
-            age[i] = round(np.random.normal(80, 10), 1)
+            age[i] = round(np.random.normal(65, 10), 1)
             if (age[i] <= 95):
                 break
 except:
