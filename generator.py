@@ -470,32 +470,42 @@ diag2 = []
 for i in range(0, amount_generate):
     diag2.append("N/A")
 
-for x in range(0, int(int((amount_generate / 100) * 10.5) + 1)):
-    i = random.randint(0, amount_generate)
-    icd_code[i] = str(np.random.choice(["U07.1", "U07.2"], p=[0.5, 0.5])).replace(
-        "['", '').replace("']", '')
+covid_age = []
 
-    if (icd_code[i] == 'U07.1'):
-        department[i] = "Confirmed COVID"
-    elif (icd_code[i] == 'U07.2'):
-        department[i] = "Suspect COVID"
+try:
+    for x in range(0, int(float(float(amount_generate / 100) * 10.5) + 2)):
+        i = random.randint(0, amount_generate)
+        icd_code[i] = str(np.random.choice(["U07.1", "U07.2"], p=[0.5, 0.5])).replace(
+            "['", '').replace("']", '')
 
-    diag2[i] = str(random.choices([random.choice(["Asthma: J45.909", "COPD: J44.9", "Cancer: C80.1",
-                                                  "Cardiovascular Disease: I51.9", "Immuno-Compromised: D84.9", "Diabetes: E11.9"]), "N/A"], [.25, .75])).replace(
-        "['", '').replace("']", '')
+        if (icd_code[i] == 'U07.1'):
+            department[i] = "Confirmed COVID"
+        elif (icd_code[i] == 'U07.2'):
+            department[i] = "Suspect COVID"
 
-    icu_day[i] = int(str(random.choices(
-        [str(random.randint(4, 19)), "0"], [.35, .65])).replace(
-        "['", '').replace("']", ''))
+        diag2[i] = str(random.choices([random.choice(["Asthma: J45.909", "COPD: J44.9", "Cancer: C80.1",                                                  "Cardiovascular Disease: I51.9", "Immuno-Compromised: D84.9", "Diabetes: E11.9"]), "N/A"], [.25, .75])).replace(
+            "['", '').replace("']", '')
 
-    lnth_of_stay[i] = str(random.randint(4, 21)).replace(
-        "['", '').replace("']", '')
+        icu_day[i] = int(str(random.choices(
+            [str(random.randint(4, 19)), "0"], [.35, .65])).replace(
+            "['", '').replace("']", ''))
 
-    genders[i] = str(np.random.choice(
-        ["1", "2"], p=[0.5, 0.5])).replace(
-        "['", '').replace("']", '')
+        lnth_of_stay[i] = str(random.randint(4, 21)).replace(
+            "['", '').replace("']", '')
 
-    age[i] = 65
+        genders[i] = str(np.random.choice(
+            ["1", "2"], p=[0.5, 0.5])).replace(
+            "['", '').replace("']", '')
+
+        age[i] = round(np.random.normal(65, 10), 1)
+
+        while (age[i] > 95):
+            age[i] = round(np.random.normal(80, 10), 1)
+            if (age[i] <= 95):
+                break
+except:
+    print("Unknown Error Occurred, Please Restart Script.")
+    exit()
 
 # HAB
 health_auth_br = []
