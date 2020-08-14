@@ -461,16 +461,16 @@ try:
                 break
         if genders[i] == "1":
             if diag2[i] != "N/A":
-                lnth_of_stay[i] = round(np.random.normal(16, 5))
-                while (lnth_of_stay[i] < 0):
-                    lnth_of_stay[i] = round(np.random.normal(16, 5))
-                    if (lnth_of_stay[i] > 0):
+                lnth_of_stay[i] = round(np.random.normal(16, 3))
+                while (lnth_of_stay[i] < 0 or lnth_of_stay[i] > 21):
+                    lnth_of_stay[i] = round(np.random.normal(16, 3))
+                    if (lnth_of_stay[i] > 0 and lnth_of_stay[i] <= 21):
                         break
             else:
-                lnth_of_stay[i] = round(np.random.normal(8, 5))
-                while (lnth_of_stay[i] < 0):
-                    lnth_of_stay[i] = round(np.random.normal(8, 5))
-                    if (lnth_of_stay[i] > 0):
+                lnth_of_stay[i] = round(np.random.normal(8, 4))
+                while (lnth_of_stay[i] < 0 or lnth_of_stay[i] > 21):
+                    lnth_of_stay[i] = round(np.random.normal(8, 4))
+                    if (lnth_of_stay[i] > 0 and lnth_of_stay[i] <= 21):
                         break
 
 
