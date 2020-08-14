@@ -439,7 +439,7 @@ try:
         elif (icd_code[i] == 'U07.2'):
             department[i] = "Suspect COVID"
 
-        diag2[i] = str(random.choices([random.choice(["Asthma: J45.909", "COPD: J44.9", "Cancer: C80.1", "Cardiovascular Disease: I51.9", "Immuno-Compromised: D84.9","Diabetes: E11.9"]), "N/A"], [.25, .75])).replace(
+        diag2[i] = str(random.choices([random.choice(["Asthma: J45.909", "COPD: J44.9", "Cancer: C80.1", "Cardiovascular Disease: I51.9", "Immuno-Compromised: D84.9", "Diabetes: E11.9"]), "N/A"], [.25, .75])).replace(
             "['", '').replace("']", '')
 
         icu_day[i] = int(str(random.choices(
@@ -459,6 +459,21 @@ try:
             age[i] = round(np.random.normal(65, 10), 1)
             if (age[i] <= 95):
                 break
+        if genders[i] == "1":
+            if diag2[i] != "N/A":
+                lnth_of_stay[i] = round(np.random.normal(16, 5))
+                while (lnth_of_stay[i] < 0):
+                    lnth_of_stay[i] = round(np.random.normal(16, 5))
+                    if (lnth_of_stay[i] > 0):
+                        break
+            else:
+                lnth_of_stay[i] = round(np.random.normal(8, 5))
+                while (lnth_of_stay[i] < 0):
+                    lnth_of_stay[i] = round(np.random.normal(8, 5))
+                    if (lnth_of_stay[i] > 0):
+                        break
+
+
 except:
     print("Unknown Error Occurred, Please Restart Script.")
     exit()
